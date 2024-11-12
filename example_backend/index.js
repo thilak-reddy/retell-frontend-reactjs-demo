@@ -1,8 +1,10 @@
 require('dotenv').config();
+const axios = require('axios')
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const app = express();
+const API_KEY = process.env.RETELL_API_KEY
 
 const PORT = process.env.PORT || 8080;
 
