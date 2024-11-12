@@ -1,11 +1,13 @@
 [build]
-builder = "nixpacks"
-buildCommand = "cd frontend && npm install && npm run build"
+builder = "docker"
+buildCommand = "docker build -t my-app ."
 
 [deploy]
-startCommand = "cd example_backend && npm install && npm start"
+startCommand = "docker run -p 8080:8080 my-app"
 healthcheckPath = "/"
 healthcheckTimeout = 100
 
 [env]
-NODE_ENV = "production" 
+NODE_ENV = "production"
+PORT = "8080"
+ALLOWED_DOMAINS = "localhost:3000, sparkifyai.com,thilakreddy.com"
