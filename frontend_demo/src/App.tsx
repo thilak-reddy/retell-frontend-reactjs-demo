@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { RetellWebClient } from "retell-client-js-sdk";
 
-const agentId = "ENTER_YOUR_AGENT_ID";
+const agentId = "agent_99f45564720a36a31d2778cdeb";
 
 interface RegisterCallResponse {
   access_token: string;
@@ -76,40 +76,50 @@ const App = () => {
     }
   };
 
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
   async function registerCall(agentId: string): Promise<RegisterCallResponse> {
     try {
-      // Update the URL to match the new backend endpoint you created
-      const response = await fetch("http://localhost:8080/create-web-call", {
+      const response = await fetch(`${API_URL}/create-web-call`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          agent_id: agentId, // Pass the agentId as agent_id
-          // You can optionally add metadata and retell_llm_dynamic_variables here if needed
-          // metadata: { your_key: "your_value" },
-          // retell_llm_dynamic_variables: { variable_key: "variable_value" }
+          agent_id: agentId,
         }),
       });
-  
+
       if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
+
       const data: RegisterCallResponse = await response.json();
       return data;
-    } catch (err) {
-      console.log(err);
-      throw new Error(err);
+    } catch (error) {
+      console.error("Error details:", error);
+      throw error;
     }
   }
 
   return (
     <div className="App">
       <header className="App-header">
-        <button onClick={toggleConversation}>
-          {isCalling ? "Stop" : "Start"}
-        </button>
+        <div className="chat-container">
+          <h1 className="chat-title">Retell AI Voice Chat</h1>
+          <button 
+            onClick={toggleConversation}
+            className={`chat-button ${isCalling ? 'active' : ''}`}
+          >
+            {isCalling ? "End Call" : "Start Conversation"}
+          </button>
+          
+          {isCalling && (
+            <div className="status-indicator pulse">
+              Call in progress...
+            </div>
+          )}
+        </div>
       </header>
     </div>
   );

@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
 }
 
 .App-logo {
@@ -14,14 +16,13 @@
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
+  padding: 20px;
 }
 
 .App-link {
@@ -34,5 +35,73 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+.chat-container {
+  max-width: 600px;
+  width: 90%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 30px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.chat-title {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #61dafb;
+}
+
+.chat-button {
+  background: #61dafb;
+  color: #16213e;
+  border: none;
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.chat-button:hover {
+  background: #4fa8d5;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(97, 218, 251, 0.4);
+}
+
+.chat-button.active {
+  background: #ff4757;
+  color: white;
+}
+
+.chat-button.active:hover {
+  background: #ff6b81;
+}
+
+.status-indicator {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #61dafb;
+  opacity: 0.8;
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
   }
 }
