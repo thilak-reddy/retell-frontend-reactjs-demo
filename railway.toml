@@ -1,0 +1,9 @@
+[deploy]
+startCommand = "npm start"
+healthcheckPath = "/"
+healthcheckTimeout = 100
+
+[env]
+NODE_ENV = "production"
+PORT = "8080"
+ALLOWED_DOMAINS = "localhost:3000, sparkifyai.com,thilakreddy.com"
