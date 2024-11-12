@@ -91,13 +91,15 @@ const App = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
 
       const data: RegisterCallResponse = await response.json();
       return data;
     } catch (error) {
-      console.error("Error details:", error);
+      console.error("Error registering call:", error);
+      setIsCalling(false); // Reset state on error
       throw error;
     }
   }
@@ -106,7 +108,7 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <div className="chat-container">
-          <h1 className="chat-title">Retell AI Voice Chat</h1>
+          <h1 className="chat-title">Chatterbox AI Voice Demo</h1>
           <button 
             onClick={toggleConversation}
             className={`chat-button ${isCalling ? 'active' : ''}`}

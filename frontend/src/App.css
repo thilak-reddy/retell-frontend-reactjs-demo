@@ -75,12 +75,12 @@
 }
 
 .chat-button.active {
-  background: #ff4757;
-  color: white;
+  background: #ffffff;
+  color: #000000;
 }
 
 .chat-button.active:hover {
-  background: #ff6b81;
+  background: #e6e6e6;
 }
 
 .status-indicator {
