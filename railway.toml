@@ -1,9 +1,5 @@
-[build]
-builder = "docker"
-buildCommand = "docker build -t my-app ."
-
 [deploy]
-startCommand = "docker run -p 8080:8080 my-app"
+startCommand = "npm start"
 healthcheckPath = "/"
 healthcheckTimeout = 100
 
