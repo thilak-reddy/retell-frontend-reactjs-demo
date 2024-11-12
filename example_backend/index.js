@@ -101,6 +101,16 @@ app.get('/check-domain', (req, res) => {
     });
 });
 
+// Example for Express.js
+app.get('/', (req, res) => {
+  res.status(200).send('Server is healthy');
+});
+
+// Alternatively, use a specific health check path
+app.get('/health', (req, res) => {
+  res.status(200).send('Server is healthy');
+});
+
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
