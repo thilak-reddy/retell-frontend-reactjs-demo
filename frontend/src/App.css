@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: #000000;
 }
 
 .App-logo {
@@ -51,12 +51,12 @@
 .chat-title {
   font-size: 2rem;
   margin-bottom: 30px;
-  color: #61dafb;
+  color: #fee32e;
 }
 
 .chat-button {
-  background: #61dafb;
-  color: #16213e;
+  background: #fee32e;
+  color: #000000;
   border: none;
   padding: 15px 40px;
   font-size: 1.2rem;
@@ -69,9 +69,9 @@
 }
 
 .chat-button:hover {
-  background: #4fa8d5;
+  background: #e5ca29;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(97, 218, 251, 0.4);
+  box-shadow: 0 5px 15px rgba(254, 227, 46, 0.4);
 }
 
 .chat-button.active {
@@ -86,7 +86,7 @@
 .status-indicator {
   margin-top: 20px;
   font-size: 1rem;
-  color: #61dafb;
+  color: #fee32e;
   opacity: 0.8;
 }
 
