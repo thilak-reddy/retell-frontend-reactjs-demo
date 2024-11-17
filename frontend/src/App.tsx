@@ -5,36 +5,33 @@ import { RetellWebClient } from "retell-client-js-sdk";
 // Updated from const to let to allow reassignment
 let agentId = "agent_99f45564720a36a31d2778cdeb";
 
+// Add this interface at the top of your file
+interface IframeParameters {
+  agentId?: string;
+  title?: string;
+}
+
 const App = () => {
   const [isCalling, setIsCalling] = useState(false);
   const [chatTitle, setChatTitle] = useState("Chatterbox AI Voice Demo");
   const retellWebClientRef = useRef(new RetellWebClient());
 
-  // Move the useEffect inside the component
   useEffect(() => {
     try {
-      // Try to get the parent window location
-      const parentWindow = window.parent;
-      if (parentWindow) {
-        // Find our iframe element
-        const iframes = parentWindow.document.getElementsByTagName('iframe');
-        for (let i = 0; i < iframes.length; i++) {
-          const iframe = iframes[i];
-          if (iframe.contentWindow === window) {
-            const iframeAgentId = iframe.dataset.agentId;
-            const iframeTitle = iframe.dataset.title;
-            
-            if (iframeAgentId) {
-              agentId = iframeAgentId;
-              console.log("Setting agent ID:", iframeAgentId);
-            }
-            if (iframeTitle) {
-              setChatTitle(iframeTitle);
-              console.log("Setting title:", iframeTitle);
-            }
-            break;
-          }
-        }
+      // Get and parse URL parameters in a structured way
+      const params: IframeParameters = {
+        agentId: new URLSearchParams(window.location.search).get('agentId') || undefined,
+        title: new URLSearchParams(window.location.search).get('title') || undefined
+      };
+
+      // Apply parameters if they exist
+      if (params.agentId) {
+        agentId = params.agentId;
+        console.log("Setting agent ID:", params.agentId);
+      }
+      if (params.title) {
+        setChatTitle(params.title);
+        console.log("Setting title:", params.title);
       }
     } catch (e) {
       console.error("Error accessing iframe parameters:", e);
