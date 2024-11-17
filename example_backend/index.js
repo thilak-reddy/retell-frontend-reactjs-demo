@@ -22,19 +22,8 @@ const allowedDomains = process.env.ALLOWED_DOMAINS
 // Basic Helmet setup with CSP and frame ancestors
 app.use(
   helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        connectSrc: ["'self'", "https://api.retellai.com"],
-        frameSrc: ["'self'", "https://*.thilakreddy.com", "https://*.sparkifyai.com"],
-        frameAncestors: ["'self'", "https://*.thilakreddy.com", "https://*.sparkifyai.com"],
-        imgSrc: ["'self'", "data:", "blob:"],
-        mediaSrc: ["'self'", "https://api.retellai.com"],
-        scriptSrc: ["'self'", "'unsafe-inline'"],
-        styleSrc: ["'self'", "'unsafe-inline'"],
-      },
-    },
-    crossOriginEmbedderPolicy: false, // Needed for audio streaming
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
     crossOriginResourcePolicy: { policy: "cross-origin" },
   })
 );
@@ -42,18 +31,7 @@ app.use(
 // CORS configuration
 app.use(
   cors({
-    origin: function (origin, callback) {
-      const allowedDomains = [
-        'localhost',
-        'thilakreddy.com',
-        'sparkifyai.com'
-      ];
-      if (!origin || allowedDomains.some(domain => origin.includes(domain))) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
+    origin: true,
     credentials: true,
     methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']

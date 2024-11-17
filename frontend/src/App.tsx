@@ -12,18 +12,22 @@ const App = () => {
 
   // Move the useEffect inside the component
   useEffect(() => {
-    // Check if running in iframe
-    if (window !== window.parent && window.frameElement) {
-      const frameElement = window.frameElement as HTMLIFrameElement;
-      const iframeAgentId = frameElement.getAttribute('data-agent-id');
-      const iframeTitle = frameElement.getAttribute('data-title');
+    try {
+      // Get parameters from URL instead of iframe attributes
+      const urlParams = new URLSearchParams(window.location.search);
+      const iframeAgentId = urlParams.get('agentId');
+      const iframeTitle = urlParams.get('title');
       
       if (iframeAgentId) {
         agentId = iframeAgentId;
+        console.log("Setting agent ID:", iframeAgentId);
       }
       if (iframeTitle) {
         setChatTitle(iframeTitle);
+        console.log("Setting title:", iframeTitle);
       }
+    } catch (e) {
+      console.error("Error accessing URL parameters:", e);
     }
   }, []);
 
