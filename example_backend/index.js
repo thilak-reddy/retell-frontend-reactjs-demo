@@ -26,8 +26,8 @@ app.use(
       directives: {
         defaultSrc: ["'self'"],
         connectSrc: ["'self'", "https://api.retellai.com"],
-        frameSrc: ["'self'", ...allowedDomains],
-        frameAncestors: ["'self'", ...allowedDomains.map(domain => `https://${domain}`)],
+        frameSrc: ["'self'", "https://*.thilakreddy.com", "https://*.sparkifyai.com"],
+        frameAncestors: ["'self'", "https://*.thilakreddy.com", "https://*.sparkifyai.com"],
         imgSrc: ["'self'", "data:", "blob:"],
         mediaSrc: ["'self'", "https://api.retellai.com"],
         scriptSrc: ["'self'", "'unsafe-inline'"],
@@ -43,6 +43,11 @@ app.use(
 app.use(
   cors({
     origin: function (origin, callback) {
+      const allowedDomains = [
+        'localhost',
+        'thilakreddy.com',
+        'sparkifyai.com'
+      ];
       if (!origin || allowedDomains.some(domain => origin.includes(domain))) {
         callback(null, true);
       } else {
