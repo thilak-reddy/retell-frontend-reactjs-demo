@@ -2,16 +2,35 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { RetellWebClient } from "retell-client-js-sdk";
 
-const agentId = "agent_99f45564720a36a31d2778cdeb";
-
-interface RegisterCallResponse {
-  access_token: string;
-}
-
-const retellWebClient = new RetellWebClient();
+// Updated from const to let to allow reassignment
+let agentId = "agent_99f45564720a36a31d2778cdeb";
 
 const App = () => {
   const [isCalling, setIsCalling] = useState(false);
+  const [chatTitle, setChatTitle] = useState("Chatterbox AI Voice Demo");
+
+  // Move the useEffect inside the component
+  useEffect(() => {
+    // Check if running in iframe
+    if (window !== window.parent && window.frameElement) {
+      const frameElement = window.frameElement as HTMLIFrameElement;
+      const iframeAgentId = frameElement.getAttribute('data-agent-id');
+      const iframeTitle = frameElement.getAttribute('data-title');
+      
+      if (iframeAgentId) {
+        agentId = iframeAgentId;
+      }
+      if (iframeTitle) {
+        setChatTitle(iframeTitle);
+      }
+    }
+  }, []);
+
+  interface RegisterCallResponse {
+    access_token: string;
+  }
+
+  const retellWebClient = new RetellWebClient();
 
   // Initialize the SDK
   useEffect(() => {
@@ -108,7 +127,7 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <div className="chat-container">
-          <h1 className="chat-title">Chatterbox AI Voice Demo</h1>
+          <h1 className="chat-title">{chatTitle}</h1>
           <button 
             onClick={toggleConversation}
             className={`chat-button ${isCalling ? 'active' : ''}`}
