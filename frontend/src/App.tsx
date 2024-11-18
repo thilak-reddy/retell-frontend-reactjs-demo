@@ -16,11 +16,11 @@ const App = () => {
       
       if (iframeAgentId) {
         setCurrentAgentId(iframeAgentId);
-        console.log("Setting agent ID:", iframeAgentId);
+        // console.log("Setting agent ID:", iframeAgentId);
       }
       if (iframeTitle) {
         setChatTitle(decodeURIComponent(iframeTitle));
-        console.log("Setting title:", iframeTitle);
+        // console.log("Setting title:", iframeTitle);
       }
     } catch (e) {
       console.error("Error accessing URL parameters:", e);
@@ -36,20 +36,20 @@ const App = () => {
     const client = retellWebClientRef.current;
     
     client.on("call_started", () => {
-      console.log("call started");
+      // console.log("call started");
     });
     
     client.on("call_ended", () => {
-      console.log("call ended");
+      // console.log("call ended");
       setIsCalling(false);
     });
     
     client.on("agent_start_talking", () => {
-      console.log("agent_start_talking");
+      // console.log("agent_start_talking");
     });
     
     client.on("agent_stop_talking", () => {
-      console.log("agent_stop_talking");
+      // console.log("agent_stop_talking");
     });
     
     client.on("audio", (audio) => {
@@ -65,7 +65,7 @@ const App = () => {
     });
     
     client.on("error", (error) => {
-      console.error("An error occurred:", error);
+      // console.error("An error occurred:", error);
       client.stopCall();
     });
 
